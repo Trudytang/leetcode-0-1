@@ -1,0 +1,43 @@
+题目:
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的 
+字母异位词.(neat 是 a net 的一个异序词。)
+
+示例 1:
+输入: s = "anagram", t = "nagaram"
+输出: true
+
+示例 2:
+输入: s = "rat", t = "car"
+输出: false
+
+思路:同样利用技术数组分别遍历并记录s和t两个字符串的顺序
+答案:
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        // 如果字符串长度不相等直接返回false
+        if (s.length() != t.length()) {
+            return false; // If not equal, they can't be anagrams
+        }
+      
+        //计数数组
+        int[] letterCount = new int[26];
+      
+        // 分别遍历两个字符串,s加,t减
+        for (int i = 0; i < s.length(); i++) {
+            // Increment the count for each letter in string s
+            letterCount[s.charAt(i) - 'a']++;
+            // Decrement the count for each letter in string t
+            letterCount[t.charAt(i) - 'a']--;
+        }
+      
+        // 如果数组计数都为0,则是字母异位词
+        for (int count : letterCount) {
+            if (count != 0) {
+                return false; // If any count is not zero, s and t are not anagrams
+            }
+        }
+      
+        // If all counts are zero, then s and t are anagrams
+        return true;
+    }
+}

@@ -1,0 +1,72 @@
+题目:
+给定两个字符串 s 和 t ，它们只包含小写字母。
+
+字符串 t 由字符串 s 随机重排，然后在随机位置添加一个字母。
+
+请找出在 t 中被添加的字母。
+
+ 
+
+示例 1：
+
+输入：s = "abcd", t = "abcde"
+输出："e"
+解释：'e' 是那个被添加的字母。
+示例 2：
+
+输入：s = "", t = "y"
+输出："y"
+
+思想:
+使用字符计数方法。首先，该解决方案计算字符串中每个字符的频率s。
+然后它遍历字符串t并减少遇到的每个字符的计数。
+由于字符串t包含来自的所有字符s加上一个额外的字符，因此当我们在中找到一个字符，t并且它的计数降到零以下时，我们就知道这是添加的额外字符 - 它的s数量在中并不相同。
+因此，通过使用哈希图或数组来计数字符，我们可以有效地找到添加的字符。
+
+答案:
+class Solution {
+    public char findTheDifference(String s, String t) {
+        // 计数数组,记录26个字母分别出现的频率,字符i-'a'为其索引,存储的值初始都为0,即0次出现
+        int[] count = new int[26];
+      
+        // 遍历初始数组s并记录每个字符出现的频率,出现则对应索引数组值加1
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i) - 'a']++;
+        }
+      
+        // 遍历改变后的数组,若出现则在计数数组对应的值先减1,如果减1后值小于0则说明是新加的字符
+        for (int i = 0; i < t.length(); i++) {
+            // Decrease the count for the current character
+            if (--count[t.charAt(i) - 'a'] < 0) {
+                return t.charAt(i);
+            }
+        }
+      
+        // This return statement is a placeholder; the code logic guarantees that the function will return from within the loop.
+        // Since we know string t has one extra character, the loop will always return that extra character before this point.
+        // Thus, the code will never reach this statement, but Java syntax requires a return statement here.
+        return '\0';
+    }
+}
+
+知识点记录:
+placeholder 的意思是“占位符”。在这里，指的是这行 return '\0'; 只是为了满足 Java 语法要求，而并不是真正需要执行的代码。它并不代表任何实际的返回值，因为代码的逻辑保证了函数会在循环中返回，而不需要到达这个语句。
+
+Java syntax 的意思是“Java 语法”。这里是指 Java 语言的语法规则要求一个方法在所有代码路径中都要有一个返回值。如果没有返回值的话，编译器会报错。
+因此，即使函数的逻辑不需要这行代码，编译器依然要求你在方法末尾提供一个返回值，通常用一个占位符 return '\0';（或类似的值）来满足这一语法要求。
+\0 在 Java 中并不是换行符的意思，它代表的是 null 字符（也叫 空字符），它的 ASCII 码值为 0。通常它用于字符串的结束标志（例如 C 语言中的字符串），但是在 Java 中，我们一般不用它来表示字符串结束，因为 Java 的字符串是通过 length 属性来管理长度的。
+
+至于占位符，它通常指的是为了满足语法或逻辑要求而放置的临时值，可能是一个特殊的字符或常见的“哑值”。比如在函数中需要返回一个值时，如果实际逻辑并不需要返回值，你可以使用占位符来“填补”这个空白。
+
+常见的占位符
+'\0'：空字符（null character），用于字符串结束标志或占位符。
+-1：常用作表示“无效值”或“未找到”的占位符。例如，查找函数如果没有找到匹配项，可能会返回 -1。
+null：用于对象类型，表示“没有值”或“无对象”。
+0：整数类型中的占位符，表示一个无效或默认的数字值，常见于计数器、索引等场景。
+""（空字符串）：表示一个空的字符串，常用来作为占位符，尤其在字符串处理时。
+' '（空格字符）：虽然它是一个空格，但有时也作为占位符使用，表示“有字符但无实际意义”的情况。
+换行符
+如果你想表示换行符（line break），在 Java 中，常用的表示方法是：
+
+\n：表示换行符，在 Unix 和类 Unix 系统（包括 Linux 和 macOS）中使用。
+\r\n：表示回车符和换行符，通常用于 Windows 系统。

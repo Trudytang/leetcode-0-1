@@ -1,0 +1,154 @@
+给你两个字符串 word1 和 word2 。请你从 word1 开始，通过交替添加字母来合并字符串。
+如果一个字符串比另一个字符串长，就将多出来的字母追加到合并后字符串的末尾。
+返回 合并后的字符串 。
+
+class Solution {
+    //交替合并字符串
+    public String mergeAlternately(String word1, String word2) {
+        // 记录第一个和第二个字符串的长度
+        int lengthWord1 = word1.length(), lengthWord2 = word2.length(); 
+        // 创建StringBuilder类合并字符串
+        StringBuilder mergedString = new StringBuilder(); 
+      
+        // 交替添加字符串到mergedString直到最后一个字符
+        for (int index = 0; index < lengthWord1 || index < lengthWord2; ++index) {
+            //第一个字符串开始,如果不是最后一个就追加到mergedString末尾
+            if (index < lengthWord1) {
+                mergedString.append(word1.charAt(index));
+            }
+            // 第一个字符串开始,如果不是最后一个就追加到mergedString末尾
+            if (index < lengthWord2) {
+                mergedString.append(word2.charAt(index));
+            }
+        }
+        // Return the resulting string
+        return mergedString.toString();
+    }
+}
+
+重要函数:
+public char charAt(int index)用于获取字符串中指定索引位置的字符。
+
+1. charAt() 用于遍历字符串
+如果要逐个访问字符串中的字符，可以用 charAt() 和 for 循环：
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "World";
+        for (int i = 0; i < str.length(); i++) {
+            System.out.println("索引 " + i + " : " + str.charAt(i));
+        }
+    }
+}
+输出：
+
+索引 0 : W
+索引 1 : o
+索引 2 : r
+索引 3 : l
+索引 4 : d
+5. charAt() 结合 if 进行条件判断
+🔹 统计字符串中某个字符出现的次数
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "banana";
+        char target = 'a';
+        int count = 0;
+        
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == target) {
+                count++;
+            }
+        }
+        
+        System.out.println("字符 '" + target + "' 出现了 " + count + " 次");
+    }
+}
+输出：
+字符 'a' 出现了 3 次
+
+6. charAt() 结合 Character 类
+🔹 判断字符串是否包含大写字母
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "HelloWorld123";
+        boolean hasUpperCase = false;
+        
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isUpperCase(str.charAt(i))) {
+                hasUpperCase = true;
+                break;
+            }
+        }
+        
+        System.out.println("包含大写字母吗？ " + hasUpperCase);
+    }
+}
+输出：
+包含大写字母吗？ true
+
+7. charAt() 结合 toLowerCase() 进行大小写转换
+如果你想比较字符时忽略大小写，可以转换成小写或大写：
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "Java";
+        char firstChar = Character.toLowerCase(str.charAt(0));
+        
+        System.out.println("第一个字符的小写形式: " + firstChar);
+    }
+}
+输出：
+第一个字符的小写形式: j
+
+8. charAt() 用于检查字符串是否是回文
+回文（Palindrome）是指正读和反读都相同的字符串，例如 "level", "madam"。
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "madam";
+        boolean isPalindrome = true;
+
+        for (int i = 0; i < str.length() / 2; i++) {
+            if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {//如果第i个位置上的字符和它对称位置字符不同,则答案更改为false.
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        System.out.println(str + " 是回文吗？" + isPalindrome);
+    }
+}
+输出：
+madam 是回文吗？true
+
+9.indexOf() 结合
+🔹 查找字符首次出现的位置
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "apple";
+        char target = 'p';
+        int index = str.indexOf(target);
+        
+        System.out.println("字符 '" + target + "' 首次出现的位置是: " + index);
+    }
+}
+输出：
+字符 'p' 首次出现的位置是: 1
+
+indexOf() 查找首次出现的位置
+lastIndexOf() 查找最后一次出现的位置
+
+如果只是查找字符位置，直接用 indexOf()，不需要用 charAt() 遍历。
+如果想找最后一次出现的位置，可以用 lastIndexOf()。
+如果 indexOf() 返回 -1，说明字符 不在字符串里。
+
+💡 总结
+✅ charAt(index) 用于获取字符串中指定索引处的字符。
+✅ 索引从 0 开始，如果超出范围会抛出 StringIndexOutOfBoundsException。
+✅ 可以用 charAt() 结合循环 遍历字符串，统计字符、检查回文等。
+✅ charAt() 可以结合 Character 类的方法 检查大小写 或 转换大小写。
+✅ charAt() 结合 indexOf() 可用于 查找字符位置。

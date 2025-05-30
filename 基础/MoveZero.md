@@ -19,3 +19,17 @@
 保证【0，left]内元素都不为0，【left,right]内元素都为0.
 快速排序思想不能保证相对顺序。
 代码：
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int left=0;
+        for(int right=0;right<nums.length;right++){
+            if(nums[right]!=0){ //Java语法严格，int不能自动转为boolean
+                int tmp=nums[right];
+                nums[right]=nums[left];
+                nums[left]=tmp;
+                left++;
+            }
+        }
+        
+    }
+}
